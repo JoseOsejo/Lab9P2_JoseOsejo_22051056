@@ -9,6 +9,12 @@ package jamesapp;
  *
  * @author jcoq2
  */
-public class Personal {
+public class Personal extends Usuario
+{
+
+    public Personal(String user, String nombre, String password, int edad, String tipoEmpleado) {
+        super(user, nombre, password, edad, tipoEmpleado);
+    }
+
     
 }

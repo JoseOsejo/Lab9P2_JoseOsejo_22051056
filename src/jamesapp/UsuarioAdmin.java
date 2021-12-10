@@ -9,6 +9,13 @@ package jamesapp;
  *
  * @author jcoq2
  */
-public class UsuarioAdmin {
+public class UsuarioAdmin extends Usuario
+{
+
+    public UsuarioAdmin(String user, String nombre, String password, int edad, String tipoEmpleado) {
+        super(user, nombre, password, edad, tipoEmpleado);
+    }
+
     
+
 }
