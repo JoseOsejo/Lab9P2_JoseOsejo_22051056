@@ -21,6 +21,16 @@ public class JamesApp extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        clientes = new ArrayList();
+        personal = new ArrayList();
+        Personal personal1 = new Personal("personal", "David", "123", 20, "Personal");
+        Personal personal2 = new Personal("personal2", "Jorge", "Viva", 22, "Personal");
+        Cliente cliente1 = new Cliente("clientel", "Ramon", "123", 20, "Cliente");
+        Cliente cliente2 = new Cliente("cliente2", "Fernando", "Viva", 22, "Cliente");
+        clientes.add(cliente1);
+        clientes.add(cliente2);
+        personal.add(personal1);
+        personal.add(personal2);
     }
 
     /**
@@ -590,14 +600,14 @@ public class JamesApp extends javax.swing.JFrame {
         String password = jTextField5.getText();
         String nombre = jTextField2.getText();
         Integer edad = Integer.parseInt(jTextField4.getText());
-        boolean checkUser = check.checkUser(clientes, user);
-        if(checkUser == false){
-        clientes.add(new Cliente(user,nombre,password,edad,"Cliente"));
-        JOptionPane.showMessageDialog(this, "Usuario Creado Exitosamente!");
-        }else{
+        boolean checkUser = check.checkCliente(clientes, user);
+        if (checkUser == false) {
+            clientes.add(new Cliente(user, nombre, password, edad, "Cliente"));
+            JOptionPane.showMessageDialog(this, "Usuario Creado Exitosamente!");
+        } else {
             JOptionPane.showMessageDialog(this, "El Usuario ya existe");
         }
-       // System.out.println(clientes);
+        // System.out.println(clientes);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -625,18 +635,24 @@ public class JamesApp extends javax.swing.JFrame {
         UserManagement check = new UserManagement();
         String user = jTextField1.getText();
         String password = jPasswordField1.getText();
-        boolean logIn = check.logIn(clientes, user, password);
+        boolean checkCliente = check.logInCliente(clientes, user, password);
+        boolean checkPersonal = check.logInPersonal(personal, user, password);
         if (user.equalsIgnoreCase(admin.getUser()) && password.equalsIgnoreCase(admin.getPassword())) {
             AdminDialog.setVisible(true);
             AdminDialog.setLocationRelativeTo(null);
             AdminDialog.setResizable(false);
             AdminDialog.pack();
-        } else if(logIn == true){
-             ClienteDialog.setVisible(true);
+        } else if (checkCliente == true) {
+            ClienteDialog.setVisible(true);
             ClienteDialog.setLocationRelativeTo(null);
             ClienteDialog.setResizable(false);
             ClienteDialog.pack();
-        }else{
+        } else if (checkPersonal == true) {
+            Personal.setVisible(true);
+            Personal.setLocationRelativeTo(null);
+            Personal.setResizable(false);
+            Personal.pack();
+        } else {
             JOptionPane.showMessageDialog(this, "NO SE PUDO INGRESAR");
         }
         jTextField1.setText("");
@@ -744,7 +760,8 @@ public class JamesApp extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
-ArrayList<Cliente> clientes = new ArrayList();
     UsuarioAdmin admin = new UsuarioAdmin("admin", "Jose", "123", 23, "Administrador");
-    Personal personal;
+    ArrayList<Cliente> clientes;
+    ArrayList<Personal> personal;
+
 }
